@@ -5,7 +5,9 @@ export function Home() {
 
     return (
         <section className="home container">
-            <h1 className="home-header">Miss Books</h1>
+            <h2 className="home-subheader">Your favorite book shop</h2>
+            <img className="home-img" src="assets/img/scary image of lib made by AI.png" alt="scary lib" />
         </section>
     )
 }
+

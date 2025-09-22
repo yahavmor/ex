@@ -1,6 +1,8 @@
+import { BookFilter } from "../cmps/BookFilter.jsx"
 import { BookList } from "../cmps/bookList.jsx"
 import { bookService } from "../services/book.service.js"
 import { BookDetails } from "./bookDetails.jsx"
+
 
 
 const { useState, useEffect, Fragment } = React
@@ -25,7 +27,6 @@ export function BookIndex() {
         const elLi = target.closest('li')
 
         carService.remove(carId)
-            // .then(() => animateCSS(elLi, 'fadeOut'))
             .then(() => {
                 setCars(cars => cars.filter(car => car.id !== carId))
             })
@@ -36,24 +37,20 @@ export function BookIndex() {
         setSelectedCarId(carId)
     }
 
-    /* 
-        filterBy = {txt:'asd', minSpeed:123, labels:[...]}
-        newFilterBy = {txt:'asd', minSpeed:123}
-    */
     function onSetFilterBy(newFilterBy) {
+        console.log('newFilterBy:', newFilterBy)
         setFilterBy(prevFilter => ({ ...prevFilter, ...newFilterBy }))
     }
 
 
-    // console.log('render')
     if (!books) return <div>Loading...</div>
 
     return (
-        <section className="car-index">
+        <section className="book-index">
             {selectedBookId
                 ? <BookDetails onBack={() => setSelectedBookId(null)} bookId={selectedBookId} />
                 : <Fragment>
-                    {/* <CarFilter onSetFilterBy={onSetFilterBy} defaultFilter={filterBy} /> */}
+                    <BookFilter defaultFilter={filterBy} onSetFilterBy={onSetFilterBy} />
                     <BookList
                         books={books}
                         // onRemoveBook={onRemoveBook}

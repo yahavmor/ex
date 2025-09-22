@@ -1,11 +1,71 @@
-.app-nav{
+.home-header-container {
+    background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+    padding: 20px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-bottom: 30px;
+}
+
+.logo {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 2.5rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.app-nav {
     display: flex;
     justify-content: space-around;
 }
-.app-nav a{
+
+.app-nav a {
     text-decoration: none;
-    color: #333;
+    color: #ffffff;
     font-weight: bold;
     font-size: 1.2rem;
     cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.app-nav a:hover {
+    color: #ffe082;
+}
+
+.home.container {
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    min-height: 80vh;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    padding: 40px 0 60px 0;
+    margin: 30px auto;
+    max-width: 900px;
+}
+
+.home-subheader {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 32px;
+    color: #37474f;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
+    letter-spacing: 1.5px;
+    font-weight: 700;
+}
+
+.home-img {
+    display: block;
+    margin: 0 auto 24px auto;
+    max-width: 600px;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 3px solid #00bcd4;
+    background-color: #ffffff;
+    padding: 18px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.home-img:hover {
+    transform: scale(1.04) rotate(1deg);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
 }

@@ -11,9 +11,9 @@ export function RootCmp() {
 
     return (
         <section className="app">
-            <header className="app-header container">
+            <header className="home-header-container">
                 <section>
-                    <h1>Miss Books</h1>
+                    <h1 className="logo">Miss Books</h1>
                     <nav className="app-nav">
                         <a onClick={() => setPage('home')}>Home</a>
                         <a onClick={() => setPage('about')}>About</a>

@@ -2,7 +2,6 @@ import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
 
 const BOOK_KEY = 'bookDB'
-// var gFilterBy = { txt: '', minSpeed: 0 }
 
 _createBooks()
 
@@ -12,10 +11,6 @@ export const bookService = {
     remove,
     save,
     getDefaultFilter,
-    // getEmptyCar,
-    // getNextCarId,
-    // getFilterBy,
-    // setFilterBy
 }
 
 function query(filterBy = {}) {
@@ -25,9 +20,9 @@ function query(filterBy = {}) {
                 const regex = new RegExp(filterBy.title, 'i')
                 books = books.filter(book => regex.test(book.title))
             }
-            // if (gFilterBy.minSpeed) {
-            //     cars = cars.filter(car => car.maxSpeed >= gFilterBy.minSpeed)
-            // }
+            if (filterBy.listPrice) {
+                 books = books.filter(book => book.listPrice.amount >= filterBy.listPrice)
+            }
             return books
         })
 }
@@ -47,21 +42,6 @@ function save(book) {
         return storageService.post(BOOK_KEY, book)
     }
 }
-
-// function setFilterBy(filterBy = {}) {
-//     if (filterBy.txt !== undefined) gFilterBy.txt = filterBy.txt
-//     if (filterBy.minSpeed !== undefined) gFilterBy.minSpeed = filterBy.minSpeed
-//     return gFilterBy
-// }
-
-// function getNextCarId(carId) {
-//     return storageService.query(CAR_KEY)
-//         .then(cars => {
-//             let nextCarIdx = cars.findIndex(car => car.id === carId) + 1
-//             if (nextCarIdx === cars.length) nextCarIdx = 0
-//             return cars[nextCarIdx].id
-//         })
-// }
 
 function _createBooks() {
     let books = utilService.loadFromStorage(BOOK_KEY)
@@ -92,6 +72,6 @@ function _createBooks() {
     }
 }
 
-function getDefaultFilter(){
-    return {title:''}
+function getDefaultFilter() {
+    return { title: '', listPrice: '' }
 }
