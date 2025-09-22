@@ -1,0 +1,11 @@
+.app-nav{
+    display: flex;
+    justify-content: space-around;
+}
+.app-nav a{
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-size: 1.2rem;
+    cursor: pointer;
+}

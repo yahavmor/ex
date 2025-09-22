@@ -1,11 +1,11 @@
 import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
 
-const CAR_KEY = 'carDB'
+const BOOK_KEY = 'bookDB'
 var gFilterBy = { txt: '', minSpeed: 0 }
 _createCars()
 
-export const carService = {
+export const bookService = {
     query,
     get,
     remove,
