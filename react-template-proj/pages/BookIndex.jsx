@@ -9,16 +9,16 @@ export function BookIndex() {
 
     const [books, setBooks] = useState(null)
     const [selectedBookId, setSelectedBookId] = useState(null)
-    // const [filterBy, setFilterBy] = useState(carService.getDefaultFilter())
-    
+    const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter())
+
     useEffect(() => {
         loadBooks()
-    }, [])
+    }, [filterBy])
 
     function loadBooks() {
-        bookService.query()
+        bookService.query(filterBy)
             .then(setBooks)
-            // .catch(err => console.log('err:', err))
+            .catch(err => console.log('err:', err))
     }
 
     function onRemoveCar(carId, { target }) {

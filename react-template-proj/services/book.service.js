@@ -11,6 +11,7 @@ export const bookService = {
     get,
     remove,
     save,
+    getDefaultFilter,
     // getEmptyCar,
     // getNextCarId,
     // getFilterBy,
@@ -20,10 +21,10 @@ export const bookService = {
 function query(filterBy = {}) {
     return storageService.query(BOOK_KEY)
         .then(books => {
-            // if (gFilterBy.txt) {
-            //     const regex = new RegExp(gFilterBy.txt, 'i')
-            //     cars = cars.filter(car => regex.test(car.vendor))
-            // }
+            if (filterBy.title) {
+                const regex = new RegExp(filterBy.title, 'i')
+                books = books.filter(book => regex.test(book.title))
+            }
             // if (gFilterBy.minSpeed) {
             //     cars = cars.filter(car => car.maxSpeed >= gFilterBy.minSpeed)
             // }
@@ -47,11 +48,6 @@ function save(book) {
     }
 }
 
-
-// function getFilterBy() {
-//     return { ...gFilterBy }
-// }
-
 // function setFilterBy(filterBy = {}) {
 //     if (filterBy.txt !== undefined) gFilterBy.txt = filterBy.txt
 //     if (filterBy.minSpeed !== undefined) gFilterBy.minSpeed = filterBy.minSpeed
@@ -70,20 +66,32 @@ function save(book) {
 function _createBooks() {
     let books = utilService.loadFromStorage(BOOK_KEY)
     if (!books || !books.length) {
-        books = [
-            _createBook('back to the future', 100),
-            _createBook('dust in the wind', 240),
-            _createBook('pain', 120),
-            _createBook('success', 90)
-        ]
+        const ctgs = ['Love', 'Fiction', 'Poetry', 'Computers', 'Religion']
+        books = []
+        for (let i = 0; i < 20; i++) {
+            const book = {
+                id: utilService.makeId(),
+                title: utilService.makeLorem(2),
+                subtitle: utilService.makeLorem(4),
+                authors: [utilService.makeLorem(1)],
+                publishedDate: utilService.getRandomIntInclusive(1950, 2024),
+                description: utilService.makeLorem(20),
+                pageCount: utilService.getRandomIntInclusive(20, 600),
+                categories: [ctgs[utilService.getRandomIntInclusive(0, ctgs.length - 1)]],
+                thumbnail: `/BooksImages/${i+1}.jpg`,
+                language: "en",
+                listPrice: {
+                    amount: utilService.getRandomIntInclusive(80, 500),
+                    currencyCode: "EUR",
+                    isOnSale: Math.random() > 0.7
+                }
+            }
+            books.push(book)
+        }
         utilService.saveToStorage(BOOK_KEY, books)
     }
 }
-function _createBook(title, listPrice = 250) {
-    const book = getEmptyBook(title, listPrice)
-    book.id = utilService.makeId()
-    return book
-}
-function getEmptyBook(title = '', listPrice = '') {
-    return { title, listPrice }
+
+function getDefaultFilter(){
+    return {title:''}
 }
