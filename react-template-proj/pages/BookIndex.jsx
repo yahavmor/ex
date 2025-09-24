@@ -23,22 +23,21 @@ export function BookIndex() {
             .catch(err => console.log('err:', err))
     }
 
-    function onRemoveCar(carId, { target }) {
+    function onRemoveBook(bookId, { target }) {
         const elLi = target.closest('li')
 
-        carService.remove(carId)
+        bookService.remove(bookId)
             .then(() => {
-                setCars(cars => cars.filter(car => car.id !== carId))
+                setBooks(books => books.filter(book => book.id !== bookId))
             })
             .catch(err => console.log('err:', err))
     }
 
-    function onSelectCarId(carId) {
-        setSelectedCarId(carId)
+    function onSelectBookId(bookId) {
+        setSelectedBookId(bookId)
     }
 
     function onSetFilterBy(newFilterBy) {
-        console.log('newFilterBy:', newFilterBy)
         setFilterBy(prevFilter => ({ ...prevFilter, ...newFilterBy }))
     }
 
@@ -53,8 +52,8 @@ export function BookIndex() {
                     <BookFilter defaultFilter={filterBy} onSetFilterBy={onSetFilterBy} />
                     <BookList
                         books={books}
-                        // onRemoveBook={onRemoveBook}
-                        // onSelectBookId={onSelectBookId}
+                        onRemoveBook={onRemoveBook}
+                        onSelectBookId={onSelectBookId}
                     />
                 </Fragment>
 

@@ -1,0 +1,86 @@
+.book-details-modal {
+    display: grid;
+    justify-items: center;
+    max-width: 520px;
+    margin: 40px auto;
+    text-align: center;
+    position: relative;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+.book-title-modal {
+    font-size: 2.1em;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    letter-spacing: 1.5px;
+    text-shadow: 1px 1px 8px rgba(44, 62, 80, 0.3);
+}
+
+.book-authors-modal {
+    font-size: 1.1em;
+    color: #607d8b;
+    margin-bottom: 8px;
+    font-style: italic;
+}
+
+.book-publish-modal {
+    font-size: 1em;
+    color: #8e99a4;
+    margin-bottom: 16px;
+}
+
+.book-image-modal {
+    width: 240px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 16px rgba(44, 62, 80, 0.5);
+    background: #fff;
+}
+
+.book-price-modal {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #374151;
+    background: #e0e7ff;
+    border-radius: 8px;
+    display: inline-block;
+    padding: 6px 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.04);
+}
+
+.book-description-modal {
+    font-size: 1.05em;
+    color: #37474f;
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 18px 14px;
+    margin: 18px 0 24px 0;
+    box-shadow: 0 1px 6px rgba(44, 62, 80, 0.05);
+    line-height: 1.6;
+    text-align: left;
+}
+
+.btn-back {
+    background: linear-gradient( #00b4db 0%, #0083b0 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 28px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+    margin-top: 10px;
+}
+
+.btn-back:hover {
+    transform: scale(1.04);
+}
