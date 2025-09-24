@@ -1,26 +1,66 @@
-.book-preview{
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 16px;
-    margin: 16px;
+.book-preview {
+    background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+    border-radius: 16px;
+    padding: 24px 18px 18px 18px;
+    margin: 24px;
     text-align: center;
-    width: 200px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
+    box-shadow: 0 8px 32px rgba(44, 62, 80, 0.12);
+    transition: transform 0.25s, box-shadow 0.25s;
+    width: 260px; 
 }
+
 .book-preview:hover {
-    transform: scale(1.05);
+    transform: scale(1.04) rotate(-2deg);
+    box-shadow: 0 16px 48px rgba(44, 62, 80, 0.18);
 }
+
 .book-title {
-    font-size: 1.2em;
-    margin-bottom: 8px;
-}
-.book-price {
-    color: #555;
+    font-size: 1.6em;
     margin-bottom: 12px;
+    font-weight: bold;
+    color: #2c3e50;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 6px rgba(44, 62, 80, 0.6);
 }
+
+.book-price {
+    font-size: 1.1em;
+    margin-bottom: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #374151;
+    background: #e0e7ff;
+    border-radius: 8px;
+    display: inline-block;
+    padding: 4px 12px;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.04);
+}
+
+.red {
+    color: #e53935 !important;
+    background: #ffebee !important;
+}
+
+.green {
+    color: #43a047 !important;
+    background: #e8f5e9 !important;
+}
+
 .book-image {
     width: 100%;
-    height: auto;
-    border-radius: 4px;
+    max-width: 170px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    box-shadow: 0 4px 16px rgba(44, 62, 80, 0.10);
+    background: #fff;
+    border: 2px solid #a5b4fc;
 }
+
+.book-preview h4 {
+    margin: 8px 0;
+    font-size: 1em;
+    color: #546e7a;
+}
+

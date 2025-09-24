@@ -1,9 +1,10 @@
 .book-list {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
     gap: 15px;
 }
+
 
 .book-list li {
     display: flex;
@@ -11,11 +12,24 @@
     justify-content: space-around;
     align-items: center;
     padding-bottom: 5px;
-    background-color: var(--clr1bg);
     border-radius: 8px;
-    --animate-duration: 0.4s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+    transition: transform 0.2s;
+    background-color: var(--clr3);
+    border: 1px solid var(--clr2);
+    min-height: 420px;
+}
+.book-list li:hover {
+    transform: scale(1.05);
 }
 
 .book-list li.loading {
     opacity: 0.7;
+}
+.loading{
+    animation: pulse 1.5s infinite;
+    font-size: 50px;
+    color: var(--clr2);
+    margin-top: 50px;
+    text-align: center;
 }
