@@ -1,4 +1,6 @@
+import { LongTxt } from "../cmps/LongTxt.jsx"
 import { bookService } from "../services/book.service.js"
+
 
 const { useState, useEffect } = React
 
@@ -26,7 +28,7 @@ export function BookDetails({ bookId, onBack }) {
             <h4 className="book-publish-modal">Published: {publishedDate}</h4>
             <img className="book-image-modal" src={thumbnail} alt="Book Image" />
             <h4 className="book-price-modal">Price: {listPrice.amount} {listPrice.currencyCode}</h4>
-            <p className="book-description-modal">{description}</p>
+            <LongTxt txt={description}/>
             <button className="btn-back" onClick={onBack}>Back</button>
         </section>
     )
