@@ -1,28 +1,43 @@
-.book-filter-container{
+
+.book-filter-container {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 20px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
 }
-label{
+
+form {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+label {
     font-size: 18px;
     font-weight: bold;
-    margin-right: 10px;
     color: #333;
     min-width: 60px;
     text-align: right;
+    margin-right: 16px;
 }
-input{
+
+input[type="text"],
+input[type="number"] {
     padding: 8px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 200px;
+    width: 120px;
     box-sizing: border-box;
     transition: border-color 0.3s;
+}
+
+input[type="checkbox"] {
+    width: 25px;
+    height: 25px;
+    margin-left: 8px;
 }

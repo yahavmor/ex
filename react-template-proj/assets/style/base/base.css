@@ -43,3 +43,14 @@ object {
 .debug * {
   outline: 1px solid gold
 }
+
+button {
+    padding: 8px 20px;
+    font-size: 16px;
+    background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 12px;
+}

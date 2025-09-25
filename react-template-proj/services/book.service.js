@@ -23,6 +23,12 @@ function query(filterBy = {}) {
             if (filterBy.listPrice) {
                  books = books.filter(book => book.listPrice.amount >= filterBy.listPrice)
             }
+            if (filterBy.pageCount) {
+                 books = books.filter(book => book.pageCount >= filterBy.pageCount)
+            }
+            if (filterBy.isOnSale) {
+                 books = books.filter(book => book.listPrice.isOnSale === true)
+            }
             return books
         })
 }
