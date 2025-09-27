@@ -23,13 +23,13 @@ export function BookDetails({ bookId, onBack }) {
     const { title, authors , publishedDate , description ,thumbnail , listPrice  } = book
     return (
         <section className="book-details-modal">
-            <h1 className="book-title-modal">Book title: {title}</h1>
-            <h3 className="book-authors-modal">By: {authors.join(', ')}</h3>
-            <h4 className="book-publish-modal">Published: {publishedDate}</h4>
-            <img className="book-image-modal" src={thumbnail} alt="Book Image" />
-            <h4 className="book-price-modal">Price: {listPrice.amount} {listPrice.currencyCode}</h4>
+            <h1 className="title">Book title: {title}</h1>
+            <h3 className="authors">By: {authors.join(', ')}</h3>
+            <h4 className="publish">Published: {publishedDate}</h4>
+            <img className="image" src={thumbnail} alt="Book Image" />
+            <h4 className="price">Price: {listPrice.amount} {listPrice.currencyCode}</h4>
             <LongTxt txt={description}/>
-            <button className="btn-back" onClick={onBack}>Back</button>
+            <button className="back" onClick={onBack}>Back</button>
         </section>
     )
 }

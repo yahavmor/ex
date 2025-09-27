@@ -1,7 +1,8 @@
 import { BookFilter } from "../cmps/BookFilter.jsx"
 import { BookList } from "../cmps/bookList.jsx"
 import { bookService } from "../services/book.service.js"
-import { BookDetails } from "./bookDetails.jsx"
+import { BookDetails } from "./BookDetails.jsx"
+import {DeletionModal} from '../cmps/DeletionModal.jsx'
 
 
 
@@ -12,6 +13,9 @@ export function BookIndex() {
     const [books, setBooks] = useState(null)
     const [selectedBookId, setSelectedBookId] = useState(null)
     const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter())
+    const [showDeletionModal, setShowDeletionModal] = useState(false)
+    const [bookToDelete, setBookToDelete] = useState(null)
+
 
     useEffect(() => {
         loadBooks()
@@ -19,18 +23,28 @@ export function BookIndex() {
 
     function loadBooks() {
         bookService.query(filterBy)
-            .then(setBooks)
+            .then((books)=>{setBooks(books)} )
             .catch(err => console.log('err:', err))
     }
 
-    function onRemoveBook(bookId, { target }) {
-        const elLi = target.closest('li')
+    function onRemoveBook(bookId) {
+        setBookToDelete(bookId)
+        setShowDeletionModal(true)
+    }
 
-        bookService.remove(bookId)
+    function handleConfirmDelete() {
+        bookService.remove(bookToDelete)
             .then(() => {
-                setBooks(books => books.filter(book => book.id !== bookId))
+                setBooks(books => books.filter(book => book.id !== bookToDelete))
+                setShowDeletionModal(false)
+                setBookToDelete(null)
             })
             .catch(err => console.log('err:', err))
+    }
+
+    function handleCancelDelete() {
+        setShowDeletionModal(false)
+        setBookToDelete(null)
     }
 
     function onSelectBookId(bookId) {
@@ -44,6 +58,17 @@ export function BookIndex() {
 
     if (!books) return <div className="loading">Loading...</div>
 
+    if (showDeletionModal) {
+        return (
+            <section className="book-index">
+                <DeletionModal
+                    onConfirm={handleConfirmDelete}
+                    onCancel={handleCancelDelete}
+                />
+            </section>
+        )
+    }
+
     return (
         <section className="book-index">
             {selectedBookId
@@ -56,9 +81,8 @@ export function BookIndex() {
                         onSelectBookId={onSelectBookId}
                     />
                 </Fragment>
-
             }
         </section>
     )
-
 }
+

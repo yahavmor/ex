@@ -1,4 +1,3 @@
-import { BookDetails } from "../pages/bookDetails.jsx"
 import {BookPreview} from "./bookPreview.jsx"
 
 

@@ -6,7 +6,8 @@ export const utilService = {
     saveToStorage,
     padNum,
     getDayName,
-    getMonthName
+    getMonthName,
+    debounce
 }
 
 function makeId(length = 6) {
@@ -58,3 +59,12 @@ function getMonthName(date) {
     ]
     return monthNames[date.getMonth()]
 }
+
+function debounce(func, timeout = 300){
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { func.apply(this, args); }, timeout);
+     };
+    }
+    const processChange = debounce(() => saveInput());
