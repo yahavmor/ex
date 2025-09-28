@@ -1,4 +1,4 @@
-import {BookPreview} from "./bookPreview.jsx"
+import {BookPreview} from "./BookPreview.jsx"
 
 
 
