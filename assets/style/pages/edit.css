@@ -1,0 +1,72 @@
+.book-edit {
+    max-width: 420px;
+    margin: 48px auto;
+    background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(44, 62, 80, 0.10);
+    padding: 36px 32px 28px 32px;
+}
+
+.book-edit h1 {
+    text-align: center;
+    font-size: 2em;
+    color: #2c3e50;
+    margin-bottom: 28px;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.book-edit form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.book-edit label {
+    font-size: 1.1em;
+    color: #374151;
+    margin-bottom: 4px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.book-edit input[type="text"],
+.book-edit input[type="number"] {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1.5px solid #a5b4fc;
+    font-size: 1em;
+    background: #f1f5f9;
+    transition: border 0.2s;
+    outline: none;
+}
+
+.book-edit input:focus {
+    border-color: #6366f1;
+    background: #fff;
+}
+
+.book-edit button {
+    margin-top: 16px;
+    padding: 12px 0;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(90deg, #6366f1 0%, #60a5fa 100%);
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+    transition: background 0.3s, transform 0.2s;
+}
+
+.book-edit button:disabled {
+    background: #cbd5e1;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+.book-edit .loading {
+    opacity: 0.6;
+    pointer-events: none;
+}

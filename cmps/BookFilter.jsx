@@ -1,4 +1,6 @@
 const { useState, useEffect } = React
+const { Link } = ReactRouterDOM
+
 
 export function BookFilter({ defaultFilter, onSetFilterBy }) {
     const [filterByToEdit, setFilterByToEdit] = useState(defaultFilter)
@@ -47,7 +49,14 @@ export function BookFilter({ defaultFilter, onSetFilterBy }) {
                 <label>On sale</label>
                 <input onChange={handleChange} value={listPrice.isOnSale} name="isOnSale" id="isOnSale" type="checkbox" />
 
+
                 <button>Submit</button>
+                
+                <section className="container">
+                    <button className="edit-link"><Link to="/book/edit">Add Car</Link></button>
+                </section>
+
+             
 
             </form>
         </section>

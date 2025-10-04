@@ -1,32 +1,38 @@
+const Router = ReactRouterDOM.HashRouter
+const { Routes, Route, Navigate } = ReactRouterDOM
 const { useState } = React
 
 import { About } from "./pages/About.jsx"
 import { Home } from "./pages/Home.jsx"
 import { BookIndex } from "./pages/BookIndex.jsx"
+import { AppHeader } from "./cmps/AppHeader.jsx"
+import { UserMsg } from "./cmps/UserMsg.jsx"
+import { NotFound } from "./cmps/NotFound.jsx"
+import { BookDetails } from "./pages/BookDetails.jsx"
+import { BookEdit } from "./pages/BookEdit.jsx"
 
 export function RootCmp() {
 
-    const [page, setPage] = useState('home')
-
-
     return (
-        <section className="app">
-            <header className="home-header-container">
-                <section>
-                    <h1 className="logo">Miss Books</h1>
-                    <nav className="app-nav">
-                        <a onClick={() => setPage('home')}>Home</a>
-                        <a onClick={() => setPage('about')}>About</a>
-                        <a onClick={() => setPage('books')}>Books</a>
-                    </nav>
-                </section>
-            </header>
+        <Router>
+            <section className="app">
+                <AppHeader />
 
-            <main>
-                {page === 'home' && <Home />}
-                {page === 'about' && <About />}
-                {page === 'books' && <BookIndex />}
-            </main>
-        </section>
+                <main>
+                    <Routes>
+                        <Route path="/" element={<Navigate to="/home" />} />
+                        <Route path="/home" element={<Home/>} />
+                        <Route path="/about" element={<About />}/>
+                        <Route path="/book" element={<BookIndex />} />
+                        <Route path="/book/:bookId" element={<BookDetails />} />
+                        <Route path="/book/edit" element={<BookEdit />} />
+                        <Route path="/book/edit/:bookId" element={<BookEdit />} />
+                        <Route path="*" element={<NotFound />} />
+                    </Routes>
+                </main>
+
+                <UserMsg />
+            </section>
+        </Router>
     )
 } 

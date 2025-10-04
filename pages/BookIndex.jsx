@@ -1,6 +1,10 @@
+const { Link } = ReactRouterDOM
+
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
+
 import { BookFilter } from "../cmps/BookFilter.jsx"
 import { BookList } from "../cmps/BookList.jsx"
-import { bookService } from "../services/book.service.js"
+import { BookService } from "../services/book.service.js"
 import { BookDetails } from "./BookDetails.jsx"
 import {DeletionModal} from '../cmps/DeletionModal.jsx'
 
@@ -12,7 +16,7 @@ export function BookIndex() {
 
     const [books, setBooks] = useState(null)
     const [selectedBookId, setSelectedBookId] = useState(null)
-    const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter())
+    const [filterBy, setFilterBy] = useState(BookService.getDefaultFilter())
     const [showDeletionModal, setShowDeletionModal] = useState(false)
     const [bookToDelete, setBookToDelete] = useState(null)
 
@@ -22,7 +26,7 @@ export function BookIndex() {
     }, [filterBy])
 
     function loadBooks() {
-        bookService.query(filterBy)
+        BookService.query(filterBy)
             .then((books)=>{setBooks(books)} )
             .catch(err => console.log('err:', err))
     }
@@ -33,7 +37,7 @@ export function BookIndex() {
     }
 
     function handleConfirmDelete() {
-        bookService.remove(bookToDelete)
+        BookService.remove(bookToDelete)
             .then(() => {
                 setBooks(books => books.filter(book => book.id !== bookToDelete))
                 setShowDeletionModal(false)
@@ -75,6 +79,7 @@ export function BookIndex() {
                 ? <BookDetails onBack={() => setSelectedBookId(null)} bookId={selectedBookId} />
                 : <Fragment>
                     <BookFilter defaultFilter={filterBy} onSetFilterBy={onSetFilterBy} />
+
                     <BookList
                         books={books}
                         onRemoveBook={onRemoveBook}

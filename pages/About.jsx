@@ -1,3 +1,5 @@
+const { Link, Outlet } = ReactRouterDOM
+
 export function About() {
 
     return (
@@ -10,6 +12,9 @@ export function About() {
                 your reading journey, our mission is to inspire, inform, and celebrate
                  the joy of books together
             </p>
+            <section>
+                <Outlet />
+            </section>
         </section>
     )
 }

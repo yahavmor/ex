@@ -5,13 +5,31 @@ const BOOK_KEY = 'bookDB'
 
 _createBooks()
 
-export const bookService = {
+export const BookService = {
     query,
     get,
     remove,
     save,
     getDefaultFilter,
+    getEmptyBook
 }
+
+function getEmptyBook(
+    title = '',
+    listPrice = { amount: '', currencyCode: 'EUR', isOnSale: false },
+    thumbnail = '/BooksImages/4.jpg',
+    authors = ['david', 'sarah'],
+    publishedDate = '2024',
+    description = 'book description here ...',
+    pageCount = 100,
+    categories = ['horror', 'drama', 'romance'],
+    language = 'en'
+) {
+    if (typeof listPrice !== 'object' || listPrice === null) {
+        listPrice = { amount: '', currencyCode: 'EUR', isOnSale: false }
+    }
+    return { title, listPrice, thumbnail , authors, publishedDate, description, pageCount, categories, language }
+} 
 
 function query(filterBy = {}) {
     return storageService.query(BOOK_KEY)
@@ -45,6 +63,7 @@ function save(book) {
     if (book.id) {
         return storageService.put(BOOK_KEY, book)
     } else {
+        book.id = utilService.makeId() 
         return storageService.post(BOOK_KEY, book)
     }
 }
@@ -81,3 +100,4 @@ function _createBooks() {
 function getDefaultFilter() {
     return { title: '', listPrice: '' }
 }
+
