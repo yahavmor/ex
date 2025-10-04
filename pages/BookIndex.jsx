@@ -42,6 +42,7 @@ export function BookIndex() {
                 setBooks(books => books.filter(book => book.id !== bookToDelete))
                 setShowDeletionModal(false)
                 setBookToDelete(null)
+                showSuccessMsg('Book deleted')
             })
             .catch(err => console.log('err:', err))
     }

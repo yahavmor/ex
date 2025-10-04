@@ -84,3 +84,32 @@
 .back:hover {
     transform: scale(1.04);
 }
+
+.reviews-container {
+    position: fixed;
+    top: 30%;
+    left: 10%;
+    width: max-content;
+    text-align: left;
+    margin-top: 20px;
+    padding: 0 10px;
+}
+
+.reviews-container ul {
+    list-style: none;
+    padding: 0;
+}
+.reviews-container li {
+    background: #f1f5f9;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 6px rgba(44, 62, 80, 0.05);
+    font-size: 1em;
+    color: #37474f;
+}
+.reviews-container li strong {
+    color: #1e3a8a;
+}
+
+

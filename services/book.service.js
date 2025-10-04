@@ -11,7 +11,9 @@ export const BookService = {
     remove,
     save,
     getDefaultFilter,
-    getEmptyBook
+    getEmptyBook,
+    getEmptyReview,
+    onSaveReview
 }
 
 function getEmptyBook(
@@ -30,6 +32,23 @@ function getEmptyBook(
     }
     return { title, listPrice, thumbnail , authors, publishedDate, description, pageCount, categories, language }
 } 
+
+function getEmptyReview(){
+    let fullName = '',
+    rating = 1,
+    date = new Date().toISOString().slice(0, 10)
+    return { fullName, rating , date }
+}
+
+function onSaveReview(bookId,review){
+    console.log('bookId:', bookId)
+    return get(bookId)
+    .then(book => {
+        if(!book.reviews) book.reviews = []
+        book.reviews.push(review)
+        return save(book)
+    })
+}
 
 function query(filterBy = {}) {
     return storageService.query(BOOK_KEY)
