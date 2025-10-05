@@ -1,10 +1,13 @@
 .book-edit {
-    max-width: 420px;
+    max-width: 1000px;
+    display: flex;
+    justify-content: space-between;
     margin: 48px auto;
-    background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
     border-radius: 18px;
     box-shadow: 0 8px 32px rgba(44, 62, 80, 0.10);
     padding: 36px 32px 28px 32px;
+    background-color: pink
+    
 }
 
 .book-edit h1 {
@@ -70,3 +73,29 @@
     opacity: 0.6;
     pointer-events: none;
 }
+.add-container{
+    margin-top:20px;
+    text-align: center;
+    font-size: 1.2em;
+    color: #4b5563;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+.add-container input{
+    margin-left: 10px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1.5px solid #a5b4fc;
+    font-size: 1em;
+    background: #f1f5f9;
+    transition: border 0.2s;
+    outline: none;
+    width: 200px;
+}
+.add-container label{
+    font-size: 1.1em;
+    color: #374151;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+

@@ -53,7 +53,7 @@ export function BookFilter({ defaultFilter, onSetFilterBy }) {
                 <button>Submit</button>
                 
                 <section className="container">
-                    <button className="edit-link"><Link to="/book/edit">Add Car</Link></button>
+                    <button className="edit-link"><Link to="/book/edit">Add Book</Link></button>
                 </section>
 
              

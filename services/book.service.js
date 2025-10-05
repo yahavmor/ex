@@ -2,6 +2,8 @@ import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
 
 const BOOK_KEY = 'bookDB'
+const BOOK_SEARCHES = 'searchDB'
+
 
 _createBooks()
 
@@ -15,7 +17,8 @@ export const BookService = {
     getEmptyReview,
     onSaveReview,
     deleteReview,
-    getNextPrevBookId
+    getNextPrevBookId,
+    getBookFromGoogle,
 }
 
 function getEmptyBook(
@@ -149,3 +152,27 @@ function getDefaultFilter() {
     return { title: '', listPrice: '' }
 }
 
+function getBookFromGoogle(book) {
+    let googleApiBook = `https://www.googleapis.com/books/v1/volumes?printType=books&q=${book}`
+    return fetch(googleApiBook)
+        .then(res => res.json())
+        .then(data => {
+            return data.items.map(item => _createBookFromGoogle(item))
+        })
+        .catch(err => {
+            console.log('err:', err)
+            return Promise.reject('Cannot load books from google')
+        })  
+}
+function _createBookFromGoogle(book) {
+    const title = book.volumeInfo.title || ''
+    const authors = book.volumeInfo.authors || ['No authors']
+    const publishedDate = book.volumeInfo.publishedDate || ''
+    const description = book.volumeInfo.description || 'No description'
+    const pageCount = book.volumeInfo.pageCount || 0
+    const categories = book.volumeInfo.categories || ['No categories']
+    const thumbnail = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : ''
+    const language = book.volumeInfo.language || ''
+    const listPrice = { amount: utilService.getRandomIntInclusive(80, 500), currencyCode: 'EUR', isOnSale: Math.random() > 0.7 }
+    return { title, authors, publishedDate, description, pageCount, categories, thumbnail, language, listPrice }
+}

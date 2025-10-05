@@ -1,7 +1,11 @@
+import { BookAdd } from "../cmps/BookAdd.jsx"
 import { BookService } from "../services/book.service.js"
 import { showErrorMsg , showSuccessMsg } from "../services/event-bus.service.js"
+
 const { useNavigate, useParams } = ReactRouterDOM
 const { useState, useEffect } = React
+const { Link, Outlet } = ReactRouterDOM
+
 
 export function BookEdit() {
 
@@ -13,6 +17,7 @@ export function BookEdit() {
 
     useEffect(() => {
         if (bookId) loadBook()
+            navigate('/book/edit/add')
     }, [])
 
 
@@ -69,17 +74,21 @@ export function BookEdit() {
 
     const loadingClass = isLoading ? 'loading' : ''
     const { title, listPrice } = bookToEdit
-    return (
+        return (
         <section className="book-edit">
-            <h1>{bookId ? 'Edit' : 'Add'} Book</h1>
-            <form className={loadingClass} onSubmit={onSaveBook}>
-                <label>title</label>
-                <input value={title} onChange={handleChange} type="text" name="title" id="title" />
+                <Outlet />
+            <div>
+                    <h1>Edit/Add Book</h1>
+                <form className={loadingClass} onSubmit={onSaveBook}>
+                    <label>title</label>
+                    <input value={title} onChange={handleChange} type="text" name="title" id="title" />
 
-                <label>List price</label>
-                <input value={listPrice.amount} onChange={handleChange} type="number" name="listPrice" id="listPrice" />
-                <button disabled={!title}>Save</button>
-            </form>
+                    <label>List price</label>
+                    <input value={listPrice.amount} onChange={handleChange} type="number" name="listPrice" id="listPrice" />
+
+                    <button disabled={!title}>Save</button>
+                </form>
+            </div>
         </section>
     )
 
