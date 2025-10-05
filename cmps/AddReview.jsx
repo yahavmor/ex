@@ -1,6 +1,6 @@
 import { BookService } from "../services/book.service.js"
 import { showErrorMsg , showSuccessMsg } from "../services/event-bus.service.js"
-const { useNavigate, useParams } = ReactRouterDOM
+const { useNavigate, useParams, useOutletContext } = ReactRouterDOM
 const { Link } = ReactRouterDOM
 const { useState, useEffect } = React
 
@@ -8,6 +8,8 @@ const { useState, useEffect } = React
 export function AddReview() {
         const { bookId } = useParams()
         const navigate = useNavigate()
+    const { reloadBook } = useOutletContext()
+
         const [bookToReview, setBookToReview] = useState(BookService.getEmptyReview())
     
 
@@ -32,7 +34,8 @@ export function AddReview() {
     function onSaveReview(ev) {
          ev.preventDefault()
         BookService.onSaveReview(bookId,bookToReview)
-        .then(() => navigate('/book'))
+        .then(reloadBook)
+        .then(() => navigate('/book/'+bookId))
         .then(() => showSuccessMsg('Review saved'))
         .catch(err => {
             console.log('err:', err)
@@ -40,7 +43,7 @@ export function AddReview() {
             showErrorMsg('Cannot save review')
         })
         }
-    const { fullName, rating , date } = bookToReview
+    const { fullName, rating , date ,id } = bookToReview
     return <section className="add-review">
         <h2>Add your review:</h2>
         <form onSubmit={onSaveReview}>
@@ -56,7 +59,10 @@ export function AddReview() {
             </select>
             <label htmlFor="read-at">Read at:</label>
             <input value={date} type="date" id="read-at" name="date" onChange={handleChange} />
+            <label htmlFor="free-txt"></label>
+            <textarea  id="free-txt" name="freeTxt" placeholder="Enter your review here..." onChange={handleChange} ></textarea>
             <button disabled = {!fullName} >Done</button>
+            <button><Link to={`/book/${id}`}>Close</Link></button>
         </form>
 
         </section>

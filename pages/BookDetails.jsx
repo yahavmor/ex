@@ -15,16 +15,28 @@ export function BookDetails() {
         loadBook(bookId)
     }, [bookId])
 
-    function loadBook(bookId) {
-        BookService.get(bookId)
-            .then(book => setBook(book))
+        function loadBook(bookId) {
+            BookService.getNextPrevBookId(bookId)
+                .then(book => setBook(book))
+                .catch(err => console.log('err:', err))
+        }
+
+    function onDeleteReview(reviewId) {
+        BookService.deleteReview(bookId, reviewId)
+            .then(() => loadBook(bookId))
             .catch(err => console.log('err:', err))
     }
+        if (!book) return <div>Loading Details...</div>
 
-    if (!book) return <div>Loading Details...</div>
-    const { title, authors, publishedDate, description, thumbnail, listPrice, reviews} = book
+
+    const { title, authors, publishedDate, description, thumbnail, listPrice, reviews , prevBook , nextBook} = book
     return (
         <section className="book-details-modal">
+            <div>
+                <button><Link to={`/book/${prevBook.id}`}>⬅️ Previous book</Link></button>
+                <button><Link to={`/book/${nextBook.id}`}> Next book ➡️</Link></button>
+            </div>
+
             <h1 className="title">Book title: {title}</h1>
             <h3 className="authors">By: {authors.join(',')}</h3>
             <h4 className="publish">Published: {publishedDate}</h4>
@@ -33,7 +45,7 @@ export function BookDetails() {
             <LongTxt txt={description}/>
             <button><Link to={`/book/${book.id}/review`}>Add review</Link></button>
             <button className="back" onClick={() => navigate('/book')}>Back</button>
-            <Outlet />
+            <Outlet context={{ reloadBook: () => loadBook(bookId) }} />
 
             <div className="reviews-container">
             <h3>Reviews:</h3>
@@ -41,12 +53,14 @@ export function BookDetails() {
                 <ul>
                 {reviews.map((rev, idx) => (
                     <li key={idx}>
-                    <strong>{rev.fullName}</strong> rated it {rev.rating}/5 on {rev.date}
+                    <strong>{rev.fullName}</strong> rated it {'⭐'.repeat(rev.rating)} on <strong>{rev.date}</strong> 
+                    <p>"{rev.freeTxt}"</p>
+                    <button onClick={()=>onDeleteReview(rev.id)}>Delete</button>
                     </li>
                 ))}
                 </ul>
             ) : (
-                <p>No reviews yet.</p>
+                <p>No reviews yet. Be the first to add one!</p>
             )}
             </div>
         </section>

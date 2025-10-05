@@ -13,7 +13,9 @@ export const BookService = {
     getDefaultFilter,
     getEmptyBook,
     getEmptyReview,
-    onSaveReview
+    onSaveReview,
+    deleteReview,
+    getNextPrevBookId
 }
 
 function getEmptyBook(
@@ -34,11 +36,26 @@ function getEmptyBook(
 } 
 
 function getEmptyReview(){
+    let id = utilService.makeId()
     let fullName = '',
     rating = 1,
     date = new Date().toISOString().slice(0, 10)
-    return { fullName, rating , date }
+    return { fullName, rating , date , id }
 }
+function getNextPrevBookId(bookId) {
+    return query()
+        .then(books => {
+            const bookIdx = books.findIndex(book => book.id === bookId)
+            const prevBook = books[bookIdx - 1] || books[books.length - 1]
+            const nextBook = books[bookIdx + 1] || books[0]
+            return get(bookId).then(book => {
+                book.prevBook = prevBook
+                book.nextBook = nextBook
+                return book
+            })
+        })
+}
+
 
 function onSaveReview(bookId,review){
     console.log('bookId:', bookId)
@@ -47,6 +64,18 @@ function onSaveReview(bookId,review){
         if(!book.reviews) book.reviews = []
         book.reviews.push(review)
         return save(book)
+    })
+}
+function deleteReview(bookId, reviewId){
+    return get(bookId)
+    .then(book => {
+        if(!book.reviews) book.reviews = []
+        const reviewIdx = book.reviews.findIndex(review => review.id === reviewId)
+        if(reviewIdx !== -1) {
+            book.reviews.splice(reviewIdx, 1)
+            return save(book)
+        }   
+        return Promise.reject('Review not found')
     })
 }
 
