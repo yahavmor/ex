@@ -78,7 +78,7 @@ export function BookEdit() {
         <section className="book-edit">
                 <Outlet />
             <div>
-                    <h1>Edit/Add Book</h1>
+                    <h1>Edit/Add Book manually</h1>
                 <form className={loadingClass} onSubmit={onSaveBook}>
                     <label>title</label>
                     <input value={title} onChange={handleChange} type="text" name="title" id="title" />

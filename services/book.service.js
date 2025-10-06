@@ -165,14 +165,39 @@ function getBookFromGoogle(book) {
         })  
 }
 function _createBookFromGoogle(book) {
-    const title = book.volumeInfo.title || ''
-    const authors = book.volumeInfo.authors || ['No authors']
-    const publishedDate = book.volumeInfo.publishedDate || ''
-    const description = book.volumeInfo.description || 'No description'
-    const pageCount = book.volumeInfo.pageCount || 0
-    const categories = book.volumeInfo.categories || ['No categories']
-    const thumbnail = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : ''
-    const language = book.volumeInfo.language || ''
-    const listPrice = { amount: utilService.getRandomIntInclusive(80, 500), currencyCode: 'EUR', isOnSale: Math.random() > 0.7 }
-    return { title, authors, publishedDate, description, pageCount, categories, thumbnail, language, listPrice }
+    const volumeInfo = book.volumeInfo || {}
+    const saleInfo = book.saleInfo || {}
+
+    const title = volumeInfo.title || ''
+    const authors = volumeInfo.authors || ['No authors']
+    const publishedDate = volumeInfo.publishedDate || ''
+    const description = volumeInfo.description || 'No description'
+    const pageCount = volumeInfo.pageCount || 0
+    const categories = volumeInfo.categories || ['No categories']
+    const thumbnail = (volumeInfo.imageLinks && volumeInfo.imageLinks.thumbnail) || ''
+    const language = volumeInfo.language || ''
+
+    const listPrice = (saleInfo.saleability === 'FOR_SALE' && saleInfo.listPrice)
+        ? {
+            amount: saleInfo.listPrice.amount,
+            currencyCode: saleInfo.listPrice.currencyCode,
+            isOnSale: !!saleInfo.isOnSale
+        }
+        : {
+            amount: 0,
+            currencyCode: 'N/A',
+            isOnSale: false
+        }
+
+    return {
+        title,
+        authors,
+        publishedDate,
+        description,
+        pageCount,
+        categories,
+        thumbnail,
+        language,
+        listPrice
+    }
 }
