@@ -7,7 +7,8 @@ export const utilService = {
     padNum,
     getDayName,
     getMonthName,
-    debounce
+    debounce,
+    cleanObject
 }
 
 function makeId(length = 6) {
@@ -68,3 +69,15 @@ function debounce(func, timeout = 300){
      };
     }
     const processChange = debounce(() => saveInput());
+
+
+function cleanObject(obj) {
+    const newObj = {}
+    for (const key in obj) {
+        const value = obj[key]
+        if (value) {
+            newObj[key] = value
+        }
+    }
+    return newObj
+}    

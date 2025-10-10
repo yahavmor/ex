@@ -150,6 +150,31 @@
 .reviews-container::-webkit-scrollbar-thumb:hover {
     background: #94a3b8;
 }
+.divider {
+  text-align: center;
+  margin: 20px 0;
+  font-weight: bold;
+  font-size: 18px;
+  color: #555;
+  position: relative;
+}
+
+.divider span {
+  background-color: #fff;
+  padding: 0 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  border-top: 1px solid #ccc;
+  z-index: 0;
+}
 
 
 

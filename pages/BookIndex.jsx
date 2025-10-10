@@ -1,27 +1,32 @@
-const { Link } = ReactRouterDOM
-
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
-
 import { BookFilter } from "../cmps/BookFilter.jsx"
 import { BookList } from "../cmps/BookList.jsx"
 import { BookService } from "../services/book.service.js"
 import { BookDetails } from "./BookDetails.jsx"
 import {DeletionModal} from '../cmps/DeletionModal.jsx'
+import { utilService } from "../services/util.service.js"
+
 
 
 
 const { useState, useEffect, Fragment } = React
+const { Link , useSearchParams } = ReactRouterDOM
+
 
 export function BookIndex() {
 
     const [books, setBooks] = useState(null)
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [filterBy, setFilterBy] = useState(BookService.getFilterFromSearchParams(searchParams))
+
     const [selectedBookId, setSelectedBookId] = useState(null)
-    const [filterBy, setFilterBy] = useState(BookService.getDefaultFilter())
     const [showDeletionModal, setShowDeletionModal] = useState(false)
     const [bookToDelete, setBookToDelete] = useState(null)
 
 
+
     useEffect(() => {
+        setSearchParams(utilService.cleanObject(filterBy))
         loadBooks()
     }, [filterBy])
 

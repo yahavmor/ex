@@ -19,6 +19,7 @@ export const BookService = {
     deleteReview,
     getNextPrevBookId,
     getBookFromGoogle,
+    getFilterFromSearchParams
 }
 
 function getEmptyBook(
@@ -154,6 +155,7 @@ function getDefaultFilter() {
 
 function getBookFromGoogle(book) {
     let googleApiBook = `https://www.googleapis.com/books/v1/volumes?printType=books&q=${book}`
+    console.log(googleApiBook)
     return fetch(googleApiBook)
         .then(res => res.json())
         .then(data => {
@@ -199,5 +201,15 @@ function _createBookFromGoogle(book) {
         thumbnail,
         language,
         listPrice
+    }
+}
+function getFilterFromSearchParams(searchParams) {
+    const title = searchParams.get('title') || ''
+    const listPrice = searchParams.get('listPrice') || ''
+    const pageCount = searchParams.get('pageCount') || ''
+    return {
+        title,
+        listPrice,
+        pageCount
     }
 }
