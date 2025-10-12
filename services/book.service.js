@@ -155,7 +155,6 @@ function getDefaultFilter() {
 
 function getBookFromGoogle(book) {
     let googleApiBook = `https://www.googleapis.com/books/v1/volumes?printType=books&q=${book}`
-    console.log(googleApiBook)
     return fetch(googleApiBook)
         .then(res => res.json())
         .then(data => {
@@ -167,42 +166,45 @@ function getBookFromGoogle(book) {
         })  
 }
 function _createBookFromGoogle(book) {
-    const volumeInfo = book.volumeInfo || {}
-    const saleInfo = book.saleInfo || {}
+  const volumeInfo = book.volumeInfo || {}
+  const saleInfo = book.saleInfo || {}
 
-    const title = volumeInfo.title || ''
-    const authors = volumeInfo.authors || ['No authors']
-    const publishedDate = volumeInfo.publishedDate || ''
-    const description = volumeInfo.description || 'No description'
-    const pageCount = volumeInfo.pageCount || 0
-    const categories = volumeInfo.categories || ['No categories']
-    const thumbnail = (volumeInfo.imageLinks && volumeInfo.imageLinks.thumbnail) || ''
-    const language = volumeInfo.language || ''
+  const title = volumeInfo.title || ''
+  const authors = volumeInfo.authors || ['No authors']
+  const publishedDate = volumeInfo.publishedDate || ''
+  const description = volumeInfo.description || 'No description'
+  const pageCount = volumeInfo.pageCount || 0
+  const categories = volumeInfo.categories || ['No categories']
+  const thumbnail = volumeInfo.imageLinks && volumeInfo.imageLinks.thumbnail ? volumeInfo.imageLinks.thumbnail : ''
+  const language = volumeInfo.language || ''
+  const saleability = saleInfo.saleability || 'NOT_FOR_SALE'
 
-    const listPrice = (saleInfo.saleability === 'FOR_SALE' && saleInfo.listPrice)
-        ? {
-            amount: saleInfo.listPrice.amount,
-            currencyCode: saleInfo.listPrice.currencyCode,
-            isOnSale: !!saleInfo.isOnSale
-        }
-        : {
-            amount: 0,
-            currencyCode: 'N/A',
-            isOnSale: false
-        }
+  const listPrice = saleInfo.listPrice
+    ? {
+        amount: saleInfo.listPrice.amount || 0,
+        currencyCode: saleInfo.listPrice.currencyCode || 'N/A',
+        isOnSale: saleInfo.isOnSale || false
+      }
+    : {
+        amount: 0,
+        currencyCode: 'N/A',
+        isOnSale: false
+      }
 
-    return {
-        title,
-        authors,
-        publishedDate,
-        description,
-        pageCount,
-        categories,
-        thumbnail,
-        language,
-        listPrice
-    }
+  return {
+    title,
+    authors,
+    publishedDate,
+    description,
+    pageCount,
+    categories,
+    thumbnail,
+    language,
+    saleability,
+    listPrice
+  }
 }
+
 function getFilterFromSearchParams(searchParams) {
     const title = searchParams.get('title') || ''
     const listPrice = searchParams.get('listPrice') || ''

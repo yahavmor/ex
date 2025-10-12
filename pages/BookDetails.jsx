@@ -5,11 +5,9 @@ import { RateByTextbox } from "../cmps/dynamic-inputs/RateByTextBox.jsx"
 import { RateByStars } from "../cmps/dynamic-inputs/RateByStars.jsx"
 import { LongTxt } from "../cmps/LongTxt.jsx"
 import { BookService } from "../services/book.service.js"
-
-
-
-
-
+import { BookPreview } from "../cmps/BookPreview.jsx"
+import { RateOptions } from "../cmps/RateOptions.jsx"
+import { BookNavigation } from "../cmps/BookNavigation.jsx"
 
 const { useState, useEffect } = React
 
@@ -37,59 +35,18 @@ export function BookDetails() {
     }
     function onSelected(newVal) {
         setRatingVal(newVal)
-        console.log('Rating selected:', newVal)
     }
 
         if (!book) return <div>Loading Details...</div>
 
 
-    const { title, authors, publishedDate, description, thumbnail, listPrice, reviews , prevBook , nextBook} = book
+    const { description , reviews , prevBook , nextBook} = book
     return (
         <section className="book-details-modal">
-            <div>
-                <button><Link to={`/book/${prevBook.id}`}>⬅️ Previous book</Link></button>
-                <button><Link to={`/book/${nextBook.id}`}> Next book ➡️</Link></button>
-            </div>
-
-            <h1 className="title">Book title: {title}</h1>
-            <h3 className="authors">By: {authors.join(',')}</h3>
-            <h4 className="publish">Published: {publishedDate}</h4>
-            <img className="image" src={thumbnail} alt="Book Image" />
-            <h4 className="price">Price: {listPrice.amount} {listPrice.currencyCode}</h4>
+            <BookNavigation prevBook={prevBook} nextBook ={nextBook}/>
+            <BookPreview book={book} />
             <LongTxt txt={description}/>
-
-            <div>
-            <label>
-                <input
-                type="radio"
-                name="ratingType"
-                value="select"
-                checked={cmpType === 'select'}
-                onChange={(ev) => setCmpType(ev.target.value)}
-                />
-                Rate By Select
-            </label>
-            <label>
-                <input
-                type="radio"
-                name="ratingType"
-                value="textBox"
-                checked={cmpType === 'textBox'}
-                onChange={(ev) => setCmpType(ev.target.value)}
-                />
-                Rate By Free Text
-            </label>
-            <label>
-                <input
-                type="radio"
-                name="ratingType"
-                value="stars"
-                checked={cmpType === 'stars'}
-                onChange={(ev) => setCmpType(ev.target.value)}
-                />
-                Rate By Stars
-            </label>
-            </div>
+            <RateOptions cmpType={cmpType} setCmpType={setCmpType} />
             <DynamicCmp
                 cmpType={cmpType}
                 val={ratingVal}

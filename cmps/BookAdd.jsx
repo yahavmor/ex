@@ -1,14 +1,16 @@
 import { BookService } from "../services/book.service.js"
 import { showErrorMsg , showSuccessMsg } from "../services/event-bus.service.js"
 import { utilService } from "../services/util.service.js"
-const { useNavigate, useParams, useOutletContext } = ReactRouterDOM
-const { Link } = ReactRouterDOM
-const { useState, useEffect } = React
+
+import {BookPreview} from "./BookPreview.jsx"
 
 
+
+
+const { useNavigate} = ReactRouterDOM
+const { useState } = React
 
 export function BookAdd() {
-    const [searchTerm, setSearchTerm] = useState('')
     const [books, setBooks] = useState([])
     const navigate = useNavigate()
 
@@ -21,12 +23,13 @@ const debouncedSetSearchTerm = utilService.debounce((value) => {
             showSuccessMsg('Books loaded')
         })
         .catch(() => showErrorMsg('Cannot load books'))
-}, 500)
+}, 800)
 
         
     function handleChange({ target }) {
         debouncedSetSearchTerm(target.value)
     }
+
     function handleAddBook(book) {
     BookService.save(book)
         .then(() => showSuccessMsg('Book added successfully!'))
@@ -40,20 +43,18 @@ const debouncedSetSearchTerm = utilService.debounce((value) => {
             <input type="text" placeholder="search for a book" onChange={handleChange} />
 
             <ul className="book-list">
-                {books.map((book, idx) => {
+                {books.map((book) => {
                     if (!book.title) return null
-
                     return (
-                        <li key={idx} className="book-preview">
-                            <h3>{book.title}</h3>
-                            <button onClick={() => handleAddBook(book)}>Add to Library</button>
+                    <section key={book.id || book.title}> 
+                        <li> 
+                        <BookPreview book={book} />
+                        <button onClick={() => handleAddBook(book)}>Add to Library</button>
                         </li>
-                        
+                    </section>
                     )
                 })}
             </ul>
-
-
         </section>
     )
 }

@@ -3,7 +3,7 @@ export function RateByStars({ val, onSelected }) {
 
   const starStyle = (star) => ({
     cursor: 'pointer',
-    color: star <= val ? '#FFD700' : '#ccc', // זהב או אפור
+    color: star <= val ? '#FFD700' : '#ccc', 
     fontSize: '32px',
     margin: '0 6px',
     transition: 'color 0.3s ease',

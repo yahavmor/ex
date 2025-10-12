@@ -13,7 +13,7 @@ export function LongTxt({ txt, maxLength = 40 }) {
         <div className="book-description-modal">
             {isLong ? txt : txt.slice(0, maxLength) + '...'}
             <button className="btn-readmore" onClick={toggleLong}>
-                {isLong ? 'Show less' : 'Read more'}
+                {isLong ? 'Read less' : 'Read more'}
             </button>
         </div>
     )
